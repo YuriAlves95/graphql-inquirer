@@ -1,0 +1,30 @@
+{
+  "name": "conxpert-server",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsnd --respawn src/index.ts",
+    "reinstall": "yarn rimraf node_modules && yarn install",
+    "gen": "tsnd --ignore-watch src/routes/routes.ts src/index.ts --generate-resource"
+  },
+  "dependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.9.0",
+    "apollo-server-fastify": "^3.12.1",
+    "class-validator": "0.13.1",
+    "colors": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "fastify": "3.23.0",
+    "graphql": "15.7.2",
+    "inquirer": "7.3.3",
+    "mssql": "^10.0.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.2"
+  }
+}
