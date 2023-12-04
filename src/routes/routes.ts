@@ -6,28 +6,32 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginLandingPageDisabled,
 } from "apollo-server-core";
-import { AgendaResolver } from "../modules/agenda/agenda.resolver";
-import { EntidadesResolver } from "../modules/entidades/entidades.resolver";
-import { CidadesResolver } from "../modules/cidades/cidades.resolver";
-import { SistemasclientesResolver } from "../modules/sistemasclientes/sistemasclientes.resolver";
-import { SistemasResolver } from "../modules/sistemas/sistemas.resolver";
+import { OperadoresResolver } from "../modules/operadores/operadores.resolver";
+import { AuthResolver } from "../auth/auth.resolver";
+import authValidator from "../auth/auth";
 
 export const apolloInit = async () => {
-    const fastifyServer = fastify()
+    const fastifyServer = fastify();
     
     const schema = await buildSchema({
-        resolvers: [            
-            AgendaResolver,
-            EntidadesResolver,
-            CidadesResolver,
-            SistemasclientesResolver,
-            SistemasResolver,                                                                                                                              
+        resolvers: [                        
+            OperadoresResolver,   
+            AuthResolver,                                                                                                                                     
         ],
-        emitSchemaFile: true,
+        emitSchemaFile: true,    
+        authChecker: authValidator
     })
     
     const apolloServer = new ApolloServer({
         schema,
+        context: ({ request }) => {
+            const context = {
+                request,
+                token: request?.headers?.authorization
+            }
+        
+            return context;
+        },       
         plugins: [
             process.env.NODE_ENV === "production"
               ? ApolloServerPluginLandingPageDisabled()
@@ -36,8 +40,7 @@ export const apolloInit = async () => {
     })
 
     await apolloServer.start();
-    await fastifyServer.register(apolloServer.createHandler({ cors: { origin: "*", credentials: true } }));
-    //adicionar aqui todos os registros do fastify    
+    await fastifyServer.register(apolloServer.createHandler({ cors: { origin: "*", credentials: true } }));     
 
     return fastifyServer;
 };

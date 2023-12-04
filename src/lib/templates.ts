@@ -223,7 +223,7 @@ export class templates {
     }
 
     schema = `\n`;
-    schema += `import { Arg, FieldResolver, Int, Mutation, Query, Resolver, Root } from "type-graphql";\n`;
+    schema += `import { Arg, Authorized, FieldResolver, Int, Mutation, Query, Resolver, Root } from "type-graphql";\n`;
     schema += `import { ${singularLowerCamelized}Service } from "./${singularLower}.service";\n`
     schema += `import { ${singularLowerCamelized}Dto } from "./models/${singularLower}.dto";\n`
     schema += `import { ${singularLowerCamelized}Input } from "./models/${singularLower}.input";\n` 
@@ -236,32 +236,38 @@ export class templates {
     schema += `   private readonly ${singularLower}Service = new ${singularLowerCamelized}Service();\n\n`
 
     schema += `   @Query(() => [${singularLowerCamelized}Dto], { name: '${singularLower}All', nullable: 'items' })\n`
+    schema += `   @Authorized()\n`
     schema += `   async getAll(@Arg('filter', { nullable: true }) filter: ${singularLowerCamelized}Input){\n`
     schema += `       return await this.${singularLower}Service.getAll(filter)\n`
     schema += `   }\n\n`
 
     schema += `   @Query(() => ${singularLowerCamelized}Dto, { name: '${singularLower}One', nullable: true })\n`
+    schema += `   @Authorized()\n`
     schema += `   async getOne(@Arg('${regularId}', () => Int) ${regularId}: number){\n`
     schema += `      return await this.${singularLower}Service.getOne(${regularId})\n`
     schema += `   }\n\n`
 
     schema += `   @Mutation(() => ${singularLowerCamelized}Dto, { name: '${singularLower}Create' })\n`
+    schema += `   @Authorized()\n`
     schema += `   async create(@Arg('data') data: ${singularLowerCamelized}Input){\n`
     schema += `      return await this.${singularLower}Service.create(data)\n`
     schema += `   }\n\n`
 
     schema += `   @Mutation(() => ${singularLowerCamelized}Dto, { name: '${singularLower}Update' })\n`
+    schema += `   @Authorized()\n`
     schema += `   async update(@Arg('data') data: ${singularLowerCamelized}Input){\n`
     schema += `      return await this.${singularLower}Service.update(data)\n`
     schema += `   }\n\n`
 
     schema += `   @Mutation(() => Boolean, { name: '${singularLower}Remove' })\n`
+    schema += `   @Authorized()\n`
     schema += `   async remove(@Arg('${regularId}', () => Int) ${regularId}: number){\n`
     schema += `      return await this.${singularLower}Service.remove(${regularId})\n`
     schema += `   }\n\n`
 
     if (paginar){
       schema += `   @Query(() => [${singularLowerCamelized}Dto], { name: '${singularLower}Paginated', nullable: 'items' })\n`
+      schema += `   @Authorized()\n`
       schema += `   async getAllPaginated(\n`
       schema += `       @Arg('page', () => Int, { defaultValue: 1 }) page: number,\n`
       schema += `       @Arg('perPage', () => Int, { defaultValue: 10 }) perPage: number,\n`

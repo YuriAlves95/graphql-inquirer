@@ -1,5 +1,4 @@
 import path from "path";
-import { exec, spawn } from 'child_process';
 import { MSSQLConnect, executeQuery } from "./database/orm.mssql";
 import { inquirerQuestions } from "./lib/inquirer";
 import { apolloInit } from "./routes/routes";

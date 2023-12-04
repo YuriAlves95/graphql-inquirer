@@ -5,7 +5,7 @@ Projeto base para criação de backend's com graphql. base de dados SQL-server.
 neste projeto os resources são gerados automaticamente da base de dados, considerando os
 inputs do usuário em uma CLI criada utilizando o inquirer.
 
-### Principais bibliotecas utilizadas
+### Tecnologias utilizadas
 
 | Biblioteca | Docs |
 | ------ | ------ |
@@ -15,8 +15,6 @@ inputs do usuário em uma CLI criada utilizando o inquirer.
 | Apollo Server | https://www.apollographql.com/docs/apollo-server/getting-started |
 
 ### Inicialização
-
-NODE_VERSION: 18.x
 
 Primeiramente realize a instalação dos pacotes
 ```bash
