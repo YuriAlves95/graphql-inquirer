@@ -1,5 +1,5 @@
 
-## graphQL-backend
+## graphQL-inquirer
 
 Projeto base para criação de backend's com graphql. base de dados SQL-server.
 neste projeto os resources são gerados automaticamente da base de dados, considerando os
